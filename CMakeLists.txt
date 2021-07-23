@@ -22,7 +22,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
 project(sqlpp11-connector-mysql
         LANGUAGES CXX
         VERSION 0.29)
@@ -38,6 +38,7 @@ message(STATUS "Using ${CMAKE_CXX_COMPILER} (compiler id: ${CMAKE_CXX_COMPILER_I
 find_package(PkgConfig REQUIRED)
 if(USE_MARIADB)
     pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mariadb)
+    add_definitions(-DUSE_MARIADB)
 else()
     pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mysqlclient)
 endif()
