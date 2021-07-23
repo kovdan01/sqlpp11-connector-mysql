@@ -11,8 +11,12 @@ add_library(sqlpp-mysql SHARED
 target_include_directories(sqlpp-mysql PUBLIC
     $<BUILD_INTERFACE:${PUBLIC_HEADERS_DIR}>
 )
-target_link_libraries(sqlpp-mysql PRIVATE PkgConfig::mysql)
+
+find_package(date REQUIRED)
+find_package(Sqlpp11 REQUIRED)
+
 target_link_libraries(sqlpp-mysql PUBLIC sqlpp11::sqlpp11)
+target_link_libraries(sqlpp-mysql PRIVATE PkgConfig::mysql)
 target_link_libraries(sqlpp-mysql PRIVATE date::date)
 
 # Installation
@@ -22,15 +26,18 @@ include(GNUInstallDirs)
 add_library(sqlpp11::mysql ALIAS sqlpp-mysql)
 set_target_properties(sqlpp-mysql PROPERTIES EXPORT_NAME sqlpp11::mysql)
 
-install(TARGETS sqlpp-mysql
-        EXPORT sqlpp-mysql-targets
-        COMPONENT sqlpp11::mysql
-        INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+install(
+    TARGETS sqlpp-mysql
+    EXPORT sqlpp-mysql-targets
+    COMPONENT sqlpp11::mysql
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
 )
 
-install(DIRECTORY ${PUBLIC_HEADERS_DIR}
-        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-        COMPONENT sqlpp11::mysql
+install(
+    DIRECTORY ${PUBLIC_HEADERS_DIR}
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    COMPONENT sqlpp11::mysql
 )
 
 include(CMakePackageConfigHelpers)
