@@ -22,35 +22,32 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.2)
-project(sqlpp11-connector-mysql)
+cmake_minimum_required(VERSION 3.1)
+project(sqlpp11-connector-mysql
+        LANGUAGES CXX
+        VERSION 0.29)
 
-option(ENABLE_TESTS "Build unit tests" On)
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(Threads REQUIRED)
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
+option(ENABLE_TESTS "Build unit tests" ON)
 option(USE_MARIADB "Use MariaDB" OFF)
-
-find_package(PkgConfig REQUIRED)
-if(USE_MARIADB)
-    pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mariadb)
-else()
-    pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mysqlclient)
-endif()
 
 message(STATUS "Using ${CMAKE_CXX_COMPILER} (compiler id: ${CMAKE_CXX_COMPILER_ID})")
 
 find_package(date REQUIRED)
 find_package(Sqlpp11 REQUIRED)
 
-IF(MSVC)
-    add_definitions(-DNOMINMAX)
-ENDIF()
+find_package(PkgConfig REQUIRED)
+if(USE_MARIADB)
+    pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mariadb)
+    add_compile_definitions(USE_MARIADB)
+else()
+    pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mysqlclient)
+endif()
 
-set(include_dir "${PROJECT_SOURCE_DIR}/include")
+if(MSVC)
+    add_definitions(-DNOMINMAX)
+endif()
 
 add_subdirectory(src)
 
@@ -58,5 +55,3 @@ if(ENABLE_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
-
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/sqlpp11" DESTINATION include)

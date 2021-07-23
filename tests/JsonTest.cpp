@@ -26,11 +26,22 @@
 #include <mysql.h>
 #include <iostream>
 
+#if USE_MARIADB
+
+#endif
+
 // JSON support only in MYSQL 5.7.8 and later
-#if LIBMYSQL_VERSION_ID < 50708
+#if !USE_MARIADB && (LIBMYSQL_VERSION_ID < 50708)
 int main()
 {
-  std::cerr << "Warning: not testing Json, because the version id is less than 50708" << std::endl;
+  std::cerr << "Warning: not testing Json, because the MySQL version id is less than 50708" << std::endl;
+}
+#else
+// JSON support only in MariaDB 10.2.7 and later
+#if USE_MARIADB && (MARIADB_VERSION_ID < 100207)
+int main()
+{
+  std::cerr << "Warning: not testing Json, because the MariaDB version id is less than 100207" << std::endl;
 }
 #else
 
@@ -93,4 +104,5 @@ int main()
     return 1;
   }
 }
+#endif
 #endif
