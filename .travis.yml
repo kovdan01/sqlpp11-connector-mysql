@@ -57,7 +57,7 @@ install:
       -S . \
       -B build \
       -D CMAKE_INSTALL_PREFIX=`pwd`/prefix \
-      -D CMAKE_PREFIX_PATH=`pwd`/../sqlpp11/prefix \
+      -D CMAKE_PREFIX_PATH=`pwd`/../date/prefix \
       -D BUILD_TESTING=OFF
   - cmake --build build --target install
   - cd ..
