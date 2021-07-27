@@ -24,8 +24,9 @@
 
 cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
 project(sqlpp11-connector-mysql
-        LANGUAGES CXX
-        VERSION 0.30)
+    LANGUAGES CXX
+    VERSION 0.30
+)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -35,13 +36,8 @@ option(USE_MARIADB  "Use MariaDB"      OFF)
 
 message(STATUS "Using ${CMAKE_CXX_COMPILER} (compiler id: ${CMAKE_CXX_COMPILER_ID})")
 
-find_package(PkgConfig REQUIRED)
-if(USE_MARIADB)
-    pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mariadb)
-    add_definitions(-DUSE_MARIADB)
-else()
-    pkg_check_modules(mysql REQUIRED IMPORTED_TARGET mysqlclient)
-endif()
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+find_package(MySQL REQUIRED)
 
 if(MSVC)
     add_definitions(-DNOMINMAX)

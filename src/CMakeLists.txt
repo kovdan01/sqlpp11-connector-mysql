@@ -16,7 +16,7 @@ find_package(date REQUIRED)
 find_package(Sqlpp11 REQUIRED)
 
 target_link_libraries(sqlpp-mysql PUBLIC sqlpp11::sqlpp11)
-target_link_libraries(sqlpp-mysql PRIVATE PkgConfig::mysql)
+target_link_libraries(sqlpp-mysql PRIVATE MySQL::MySQL)
 target_link_libraries(sqlpp-mysql PRIVATE date::date)
 
 # Installation
