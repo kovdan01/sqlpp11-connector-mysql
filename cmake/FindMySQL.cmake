@@ -23,6 +23,9 @@ if(DEFINED MSVC)
             PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES lib
         )
+        message("AAAAAA")
+        message(${MySQL_INCLUDE_DIR})
+        message(${MySQL_LIBRARY})
     endif()
 else()
     if(USE_MARIADB)
