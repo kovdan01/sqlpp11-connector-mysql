@@ -36,14 +36,14 @@ build_script:
   - git checkout tags/v3.0.1
   - mkdir build && mkdir prefix && cd build
   - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DBUILD_TZ_LIB=OFF ..
-  - cmake --build build --target install
+  - cmake --build . --target install
   - cd ..\..
   - git clone https://github.com/rbock/sqlpp11
   - cd sqlpp11
   - git checkout tags/0.60
   - mkdir build && mkdir prefix && cd build
   - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DBUILD_TESTING=OFF ..
-  - cmake --build build --target install
+  - cmake --build . --target install
   - cd ..\..
   - cd sqlpp11-connector-mysql
   - CD
