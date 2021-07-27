@@ -48,15 +48,16 @@ install:
       -D BUILD_TZ_LIB=OFF
   - cmake --build build --target install
   - cd ..
-  - git clone https://github.com/rbock/sqlpp11
+  - git clone https://github.com/kovdan01/sqlpp11.git
   - cd sqlpp11
-  - git checkout tags/0.60
+  - git checkout enhance_dependencies_resolution
   - mkdir build && mkdir prefix
   - >
     cmake \
       -S . \
       -B build \
       -D CMAKE_INSTALL_PREFIX=`pwd`/prefix \
+      -D CMAKE_PREFIX_PATH=`pwd`/../sqlpp11/prefix \
       -D BUILD_TESTING=OFF
   - cmake --build build --target install
   - cd ..

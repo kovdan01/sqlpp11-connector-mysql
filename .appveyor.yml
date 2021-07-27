@@ -38,17 +38,17 @@ build_script:
   - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DBUILD_TZ_LIB=OFF ..
   - cmake --build . --target install
   - cd ..\..
-  - git clone https://github.com/rbock/sqlpp11
+  - git clone https://github.com/kovdan01/sqlpp11.git
   - cd sqlpp11
-  - git checkout tags/0.60
+  - git checkout enhance_dependencies_resolution
   - mkdir build && mkdir prefix && cd build
-  - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DBUILD_TESTING=OFF ..
+  - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DCMAKE_PREFIX_PATH="%cd%\..\..\date\prefix" -DBUILD_TESTING=OFF ..
   - cmake --build . --target install
   - cd ..\..
   - cd sqlpp11-connector-mysql
   - CD
   - echo %configuration%
   - mkdir build && mkdir prefix && cd build
-  - cmake -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%/../sqlpp11/prefix;%cd%/../date/prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
+  - cmake -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%\..\..\sqlpp11\prefix;%cd%\..\..\date\prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
   - cmake --build . --config %configuration% --target install
   #- ctest . --output-on-failure --build-config %configuration%
