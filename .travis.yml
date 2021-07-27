@@ -83,7 +83,7 @@ script:
    - mkdir build && cd build
    - >
      cmake \
-       -D CMAKE_PREFIX_PATH=`pwd`/../../prefix;`pwd`/../../../sqlpp11/prefix;`pwd`/../../../date/prefix \
+       -D CMAKE_PREFIX_PATH="`pwd`/../../prefix;`pwd`/../../../sqlpp11/prefix;`pwd`/../../../date/prefix" \
        ..
    - cmake --build . --target all
 
