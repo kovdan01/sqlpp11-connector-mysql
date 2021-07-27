@@ -79,7 +79,7 @@ before_script:
 
 script:
    - cmake --build build --target install
-   - ctest --output-on-failure
+   - ctest --test-dir build --output-on-failure
 
 after_script:
   - ../coveralls
