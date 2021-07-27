@@ -22,14 +22,14 @@ build_script:
   - CD
   - cd ..
   - CD
-  - git clone https://github.com/MariaDB/mariadb-connector-c
-  - cd mariadb-connector-c
-  - mkdir build
-  - cd build
-  - cmake .. -DCMAKE_GENERATOR_PLATFORM=x64
-  - cmake --build . --config %configuration% --target install
-  - CD ..
-  - CD ..
+  #- git clone https://github.com/MariaDB/mariadb-connector-c
+  #- cd mariadb-connector-c
+  #- mkdir build
+  #- cd build
+  #- cmake .. -DCMAKE_GENERATOR_PLATFORM=x64
+  #- cmake --build . --config %configuration% --target install
+  #- CD ..
+  #- CD ..
   - CD
   - git clone https://github.com/HowardHinnant/date
   - cd date
