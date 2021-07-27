@@ -56,7 +56,8 @@ install:
     cmake \
       -S . \
       -B build \
-      -D CMAKE_INSTALL_PREFIX=`pwd`/prefix
+      -D CMAKE_INSTALL_PREFIX=`pwd`/prefix \
+      -D BUILD_TESTING=OFF
   - cmake --build build --target install
   - cd ..
   - mysql --version

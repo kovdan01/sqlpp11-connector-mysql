@@ -1,4 +1,4 @@
-os: Visual Studio 2019
+os: Visual Studio 2013
 
 platform:
   - x64
@@ -42,7 +42,7 @@ build_script:
   - cd sqlpp11
   - git checkout tags/0.60
   - mkdir build && mkdir prefix
-  - cmake -S . -B build -D CMAKE_INSTALL_PREFIX=%cd%\prefix
+  - cmake -S . -B build -D CMAKE_INSTALL_PREFIX=%cd%\prefix -D BUILD_TESTING=OFF
   - cmake --build build --target install
   - cd ..
   - cd sqlpp11-connector-mysql
