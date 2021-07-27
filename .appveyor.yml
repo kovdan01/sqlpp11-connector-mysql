@@ -39,7 +39,11 @@ build_script:
   - CD
   - echo %configuration%
   - mkdir build && mkdir prefix && cd build
-  - cmake -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%\..\..\sqlpp11\prefix;%cd%\..\..\date\prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/MD /EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
+  - cmake -DBUILD_SHARED_LIBS=TRUE -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%\..\..\sqlpp11\prefix;%cd%\..\..\date\prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/MD /EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
   - cmake --build . --config %configuration% --target install
   - SET PATH=%PATH%;C:\Program Files\MySQL\MySQL Server 5.7\lib
   - ctest --output-on-failure --build-config %configuration%
+  - cd ..\test-install
+  - mkdir build && cd build
+  - cmake -DCMAKE_PREFIX_PATH="%cd%\..\..\prefix;%cd%\..\..\..\sqlpp11\prefix;%cd%\..\..\..\date\prefix" ..
+  - cmake --build . --target all
