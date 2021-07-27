@@ -45,7 +45,7 @@ install:
       -D CMAKE_INSTALL_PREFIX=`pwd`/../prefix \
       -D BUILD_TZ_LIB=OFF \
       ..
-  - cmake --build build --target install
+  - cmake --build . --target install
   - cd ../..
   - git clone https://github.com/kovdan01/sqlpp11.git
   - cd sqlpp11
