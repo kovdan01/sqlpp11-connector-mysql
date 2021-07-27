@@ -33,15 +33,39 @@ build_script:
   - CD
   - git clone https://github.com/HowardHinnant/date
   - cd date
-  - git checkout tags/v2.4
+  - git checkout tags/v3.0.1
+  - mkdir build && mkdir prefix
+  - >
+    cmake ^
+      -S . ^
+      -B build ^
+      -D CMAKE_INSTALL_PREFIX=%cd%\prefix ^
+      -D BUILD_TZ_LIB=OFF
+  - cmake --build build --target install
   - cd ..
   - git clone https://github.com/rbock/sqlpp11
+  - cd sqlpp11
+  - git checkout tags/0.60
+  - mkdir build && mkdir prefix
+  - >
+    cmake ^
+      -S . ^
+      -B build ^
+      -D CMAKE_INSTALL_PREFIX=%cd%\prefix
+  - cmake --build build --target install
+  - cd ..
   - cd sqlpp11-connector-mysql
   - CD
   - echo %configuration%
-  - mkdir build
-  - cd build
-  - cmake .. -DCMAKE_CXX_FLAGS="/EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=x64
-  - cmake --build . --config %configuration%
+  - mkdir build && mkdir prefix
+  - >
+    cmake ^
+      -S . ^
+      -D CMAKE_BUILD_TYPE=%configuration% ^
+      -D CMAKE_PREFIX_PATH="%cd%/../sqlpp11/prefix;%cd%/../date/prefix" ^
+      -D CMAKE_INSTALL_PREFIX=`pwd`/prefix ^
+      -D CMAKE_VERBOSE_MAKEFILE=ON ^
+      -D CMAKE_CXX_FLAGS="/EHsc /wd4503" ^
+      -D CMAKE_GENERATOR_PLATFORM=%platform%
+  - cmake --build . --config %configuration% --target install
   #- ctest . --output-on-failure --build-config %configuration%
-
