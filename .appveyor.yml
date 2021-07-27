@@ -1,4 +1,4 @@
-os: Visual Studio 2015
+os: Visual Studio 2019
 
 platform:
   - x64
@@ -15,7 +15,7 @@ matrix:
 
 build_script:
   - cmake --version
-  - SET PATH=%PATH%;"C:\Program Files\MySql\MySQL Server 5.7\bin"
+  - SET PATH=%PATH%;"C:\Program Files\MySQL\MySQL Server 5.7\bin"
   - set MYSQL_PWD=Password12!
   - SET
   - mysql -e "create database sqlpp_mysql;" --user=root
