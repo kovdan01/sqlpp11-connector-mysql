@@ -19,7 +19,7 @@ if(DEFINED MSVC)
             PATH_SUFFIXES include
         )
         find_library(MySQL_LIBRARY
-            NAMES mysqlclient
+            NAMES mysql
             PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES lib
         )
