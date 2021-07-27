@@ -2,8 +2,14 @@
 
 if(DEFINED MSVC)
     if(USE_MARIADB)
-        find_path(MySQL_INCLUDE_DIRNAMES mariadb_version.h)
-        find_library(MySQL_LIBRARY NAMES libmariadb)
+        find_path(MySQL_INCLUDE_DIR
+            NAMES mariadb_version.h
+            PATH_SUFFIXES include
+        )
+        find_library(MySQL_LIBRARY
+            NAMES libmariadb
+            PATH_SUFFIXES lib
+        )
     else()
         set(SEARCH_PATHS
             "$ENV{ProgramFiles}/MySQL/MySQL Server 8.0"
@@ -23,9 +29,6 @@ if(DEFINED MSVC)
             PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES lib
         )
-        message("AAAAAA")
-        message(${MySQL_INCLUDE_DIR})
-        message(${MySQL_LIBRARY})
     endif()
 else()
     if(USE_MARIADB)
