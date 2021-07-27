@@ -1,6 +1,6 @@
 set(PUBLIC_HEADERS_DIR "${PROJECT_SOURCE_DIR}/include/")
 
-add_library(sqlpp-mysql SHARED
+add_library(sqlpp-mysql
     bind_result.cpp
     char_result.cpp
     connection.cpp
