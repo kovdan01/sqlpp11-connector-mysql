@@ -46,7 +46,4 @@ build_script:
   - cd ..\test-install
   - mkdir build && cd build
   - cmake -DCMAKE_PREFIX_PATH="%cd%\..\..\prefix;%cd%\..\..\..\sqlpp11\prefix;%cd%\..\..\..\date\prefix" -DCMAKE_CXX_FLAGS="/MD /EHsc" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
-  - cmake --build . --config %configuration% --target all
-
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - cmake --build . --config %configuration% --target ALL_BUILD
