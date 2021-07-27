@@ -64,6 +64,12 @@ install(FILES
     COMPONENT sqlpp11::mysql
 )
 
+install(FILES
+    "${PROJECT_SOURCE_DIR}/cmake/FindMySQL.cmake"
+    DESTINATION "${cmake_config_path}"
+    COMPONENT sqlpp11::mysql
+)
+
 install(
     EXPORT sqlpp-mysql-targets
     FILE sqlpp-mysql-targets.cmake
