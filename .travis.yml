@@ -71,13 +71,14 @@ before_script:
    - >
      cmake \
        -S . \
+       -B build \
        -D CMAKE_BUILD_TYPE=$CONFIG \
        -D CMAKE_PREFIX_PATH="`pwd`/../sqlpp11/prefix;`pwd`/../date/prefix" \
        -D CMAKE_INSTALL_PREFIX=`pwd`/prefix \
        -D CMAKE_VERBOSE_MAKEFILE=ON
 
 script:
-   - cmake --build . --target install
+   - cmake --build build --target install
    - ctest --output-on-failure
 
 after_script:

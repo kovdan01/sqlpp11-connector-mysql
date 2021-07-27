@@ -34,21 +34,21 @@ build_script:
   - git clone https://github.com/HowardHinnant/date
   - cd date
   - git checkout tags/v3.0.1
-  - mkdir build && mkdir prefix
-  - cmake -S. -Bbuild -DCMAKE_INSTALL_PREFIX="%cd%\prefix" -DBUILD_TZ_LIB=OFF
+  - mkdir build && mkdir prefix && cd build
+  - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DBUILD_TZ_LIB=OFF ..
   - cmake --build build --target install
-  - cd ..
+  - cd ..\..
   - git clone https://github.com/rbock/sqlpp11
   - cd sqlpp11
   - git checkout tags/0.60
-  - mkdir build && mkdir prefix
-  - cmake -S. -Bbuild -DCMAKE_INSTALL_PREFIX="%cd%\prefix" -DBUILD_TESTING=OFF
+  - mkdir build && mkdir prefix && cd build
+  - cmake -DCMAKE_INSTALL_PREFIX="%cd%\..\prefix" -DBUILD_TESTING=OFF ..
   - cmake --build build --target install
-  - cd ..
+  - cd ..\..
   - cd sqlpp11-connector-mysql
   - CD
   - echo %configuration%
-  - mkdir build && mkdir prefix
-  - cmake -S. -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%/../sqlpp11/prefix;%cd%/../date/prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform%
+  - mkdir build && mkdir prefix && cd build
+  - cmake -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%/../sqlpp11/prefix;%cd%/../date/prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
   - cmake --build . --config %configuration% --target install
   #- ctest . --output-on-failure --build-config %configuration%
