@@ -41,7 +41,7 @@ install:
   - git checkout tags/v3.0.1
   - mkdir build && mkdir prefix
   - cmake \
-      -S .
+      -S . \
       -B build \
       -D CMAKE_INSTALL_PREFIX=`pwd`/prefix \
       -D BUILD_TZ_LIB=OFF
@@ -52,7 +52,7 @@ install:
   - git checkout tags/0.60
   - mkdir build && mkdir prefix
   - cmake \
-      -S .
+      -S . \
       -B build \
       -D CMAKE_INSTALL_PREFIX=`pwd`/prefix
   - cmake --build build --target install
