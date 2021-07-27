@@ -2,29 +2,37 @@
 
 if(DEFINED MSVC)
     if(USE_MARIADB)
+        set(SEARCH_PATHS
+            "$ENV{ProgramFiles}/mariadb-connector-c/include/mariadb"
+            "$ENV{ProgramFiles\(x86\)}/mariadb-connector-c/include/mariadb"
+        )
         find_path(MySQL_INCLUDE_DIR
             NAMES mysql.h
-            PATHS "$ENV{ProgramFiles}/mariadb-connector-c/include/mariadb"
-                  "$ENV{ProgramFiles\(x86\)}/mariadb-connector-c/include/mariadb"
+            PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES include
         )
         find_library(MySQL_LIBRARY
             NAMES libmariadb
-            PATHS "$ENV{ProgramFiles}/mariadb-connector-c/lib/mariadb"
-                  "$ENV{ProgramFiles\(x86\)}/mariadb-connector-c/lib/mariadb"
+            PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES lib
         )
     else()
+        set(SEARCH_PATHS
+            "$ENV{ProgramFiles}/MySQL/MySQL Server 8.0"
+            "$ENV{ProgramFiles}/MySQL/MySQL Server 5.7"
+            "$ENV{ProgramFiles}/MySQL/MySQL Server 5.6"
+            "$ENV{ProgramFiles\(x86\)}/MySQL/MySQL Server 8.0"
+            "$ENV{ProgramFiles\(x86\)}/MySQL/MySQL Server 5.7"
+            "$ENV{ProgramFiles\(x86\)}/MySQL/MySQL Server 5.6"
+        )
         find_path(MySQL_INCLUDE_DIR
             NAMES mysql_version.h
-            PATHS "$ENV{ProgramFiles}/MySQL/MySQL Server 8.0"
-                  "$ENV{ProgramFiles\(x86\)}/MySQL/MySQL Server 8.0"
+            PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES include
         )
         find_library(MySQL_LIBRARY
             NAMES mysqlclient
-            PATHS "$ENV{ProgramFiles}/MySQL/MySQL Server 8.0"
-                  "$ENV{ProgramFiles\(x86\)}/MySQL/MySQL Server 8.0"
+            PATHS ${SEARCH_PATHS}
             PATH_SUFFIXES lib
         )
     endif()
@@ -52,14 +60,10 @@ find_package_handle_standard_args(
 )
 
 if(MySQL_FOUND AND NOT TARGET MySQL::MySQL)
-    # Импортированная библиотека, т.е. не собираемая этой системой сборки.
-    # Тип (статическая/динамическая) не известен – может быть любым, смотря что нашлось.
     add_library(MySQL::MySQL UNKNOWN IMPORTED)
     target_include_directories(MySQL::MySQL INTERFACE "${MySQL_INCLUDE_DIR}")
     set_target_properties(MySQL::MySQL PROPERTIES
-        # Указать имя файла собранной внешне библиотеки.
         IMPORTED_LOCATION "${MySQL_LIBRARY}"
-        # Указать язык библиотеки на случай, когда она статическая.
         IMPORTED_LINK_INTERFACE_LANGUAGES "C")
 endif()
 
