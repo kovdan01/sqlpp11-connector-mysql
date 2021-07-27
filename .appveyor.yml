@@ -1,4 +1,4 @@
-os: Visual Studio 2013
+os: Visual Studio 2019
 
 platform:
   - x64
@@ -49,6 +49,6 @@ build_script:
   - CD
   - echo %configuration%
   - mkdir build && mkdir prefix && cd build
-  - cmake -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%\..\..\sqlpp11\prefix;%cd%\..\..\date\prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
+  - cmake -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH="%cd%\..\..\sqlpp11\prefix;%cd%\..\..\date\prefix" -DCMAKE_INSTALL_PREFIX="%cd%/prefix" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_FLAGS="/MD /EHsc /wd4503" -DCMAKE_GENERATOR_PLATFORM=%platform% ..
   - cmake --build . --config %configuration% --target install
   #- ctest . --output-on-failure --build-config %configuration%
