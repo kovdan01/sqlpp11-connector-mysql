@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
 project(sqlpp11-connector-mysql
     LANGUAGES CXX
-    VERSION 0.29
+    VERSION 0.30
 )
 
 set(CMAKE_CXX_STANDARD 11)
